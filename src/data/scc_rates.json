@@ -1,0 +1,22 @@
+{
+  "project": {
+    "PREMIUM_VCORE_HOUR": 0.0071,
+    "GCS_CLASS_A_1K_OPS": 0.002,
+    "GCS_CLASS_B_1K_OPS": 0.0002,
+    "BQ_ON_DEMAND_GB": 0.00098,
+    "BQ_SLOT_HOUR": 0.00548,
+    "ARTIFACT_IMAGE_SCAN": 0.20,
+    "MODEL_ARMOR_1K_OPS": 0.0001
+  },
+  "org": {
+    "PREMIUM_VCORE_HOUR": 0.0057,
+    "GCS_CLASS_A_1K_OPS": 0.0016,
+    "GCS_CLASS_B_1K_OPS": 0.00016,
+    "BQ_ON_DEMAND_GB": 0.0008,
+    "BQ_SLOT_HOUR": 0.004384,
+    "ARTIFACT_IMAGE_SCAN": 0.20,
+    "MODEL_ARMOR_1K_OPS": 0.0001
+  },
+  "source": "WEB_SCRAPER_SELENIUM",
+  "lastUpdated": "January 20, 2026"
+}

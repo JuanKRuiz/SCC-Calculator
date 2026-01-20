@@ -1,0 +1,5 @@
+{
+  "name": "SCC Cost Calculator",
+  "description": "A comprehensive pricing calculator for Google Cloud Security Command Center (SCC) tiers based on infrastructure usage.",
+  "requestFramePermissions": []
+}
