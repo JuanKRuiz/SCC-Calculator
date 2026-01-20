@@ -38,6 +38,6 @@ dist-ssr
 
 # Geminin / AI IDE Specific
 .gemini/
-.agent/
+
 .reviews/
 tmp/
