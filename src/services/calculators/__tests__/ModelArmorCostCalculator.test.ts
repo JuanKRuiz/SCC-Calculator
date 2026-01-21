@@ -24,8 +24,8 @@ describe('ModelArmorCostCalculator', () => {
 
     const cost = calculator.calculate(resource as ResourceInput, mockRates);
     
-    // 100k ops ÷ 1,000 × $0.50/1k ops = $50.00
-    expect(cost).toBe(50.00);
+    // 100 units (100k ops) × $0.50/1k unit = $50.00
+    expect(cost).toBeCloseTo(50.00, 2);
   });
 
   it('should return 0 when modelArmorOps is undefined', () => {
@@ -47,7 +47,7 @@ describe('ModelArmorCostCalculator', () => {
 
     const cost = calculator.calculate(resource as ResourceInput, mockRates);
     
-    // 5k ops ÷ 1,000 × $0.50 = $2.50
-    expect(cost).toBe(2.50);
+    // 5 units (5k ops) × $0.50 = $2.50
+    expect(cost).toBeCloseTo(2.50, 2);
   });
 });

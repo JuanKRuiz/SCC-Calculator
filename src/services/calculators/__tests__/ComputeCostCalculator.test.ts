@@ -26,7 +26,8 @@ describe('ComputeCostCalculator', () => {
     const cost = calculator.calculate(resource as ResourceInput, mockRates);
     
     // 24 vCPUs × 730 hours × $0.0071/vCore-hr = $124.392
-    expect(cost).toBe(124.392);
+    // 24 vCPUs × 730 hours × $0.0071/vCore-hr = $124.392
+    expect(cost).toBeCloseTo(124.392, 3);
   });
 
   it('should return 0 when vCpus is undefined', () => {

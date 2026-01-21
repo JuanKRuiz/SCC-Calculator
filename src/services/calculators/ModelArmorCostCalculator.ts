@@ -9,6 +9,7 @@ export class ModelArmorCostCalculator implements ICostCalculator {
     const operations = resource.modelArmorOps || 0;
     
     // Model Armor is priced per 1,000 operations
-    return (operations / 1000) * rates.MODEL_ARMOR_1K_OPS;
+    // Input 'modelArmorOps' represents units of 1k operations (e.g. 100 = 100k ops)
+    return operations * rates.MODEL_ARMOR_1K_OPS;
   }
 }

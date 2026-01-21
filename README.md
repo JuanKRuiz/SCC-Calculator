@@ -22,6 +22,23 @@ A professional cost estimation tool used to calculate and compare pricing for **
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Charts**: [Recharts](https://recharts.org/)
+- **Testing**: [Vitest](https://vitest.dev/)
+
+## 🏗️ Architecture
+
+The calculator uses object-oriented design patterns (Strategy, Factory, Facade) to efficiently handle **14 Google Cloud services** with only **6 calculator classes** and **7 billing rates**.
+
+📖 **See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed documentation** including:
+- Mermaid diagram showing service → calculator → rate mappings
+- Explanation of design patterns used
+- How to add new services
+- Testing strategy
+
+**Key Benefits:**
+- ✅ **DRY**: 7 services share the same `ComputeCostCalculator` logic
+- ✅ **Testable**: 31 unit tests protect calculation logic
+- ✅ **Maintainable**: Update 1 rate → affects multiple services automatically
+- ✅ **Extensible**: Add new service types without duplicating code
 
 ## 🚀 Getting Started
 

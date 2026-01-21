@@ -1,5 +1,5 @@
 import { CostCalculatorFactory } from './calculators/CostCalculatorFactory';
-import { ResourceInput, PricingRates, CostResult } from './types';
+import { ResourceInput, PricingRates, CostResult, ResourceType } from '../types';
 
 /**
  * Facade Pattern: Provides a simple interface for complex cost calculation logic.
@@ -60,7 +60,7 @@ export class SCCCostService {
 
       // Separate Model Armor costs if needed
       const modelArmorCost = details
-        .filter(d => d.type === 'MODEL_ARMOR')
+        .filter(d => d.type === ResourceType.MODEL_ARMOR)
         .reduce((sum, d) => sum + d.cost, 0);
 
       // Determine if Enterprise is recommended (threshold: $25k/month)

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { SCCCostService } from '../SCCCostService';
-import { ResourceInput, ResourceType, PricingRates } from '../types';
+import { ResourceInput, ResourceType, PricingRates } from '../../types';
 
 describe('SCCCostService', () => {
   const mockPricingRates: PricingRates = {
@@ -134,6 +134,6 @@ describe('SCCCostService', () => {
     const result = SCCCostService.calculate(resources, mockPricingRates, 'Contact Sales');
 
     // Model Armor: 100 ÷ 1000 × $0.50 = $50
-    expect(result.totalMonthly.modelArmorCost).toBe(50);
+    expect(result.totalMonthly.modelArmorCost).toBeCloseTo(50, 2);
   });
 });

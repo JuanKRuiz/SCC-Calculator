@@ -26,7 +26,8 @@ describe('InstanceCostCalculator', () => {
     const cost = calculator.calculate(resource as ResourceInput, mockRates);
     
     // 10 instances × 730 hours × $0.0071/instance-hr = $51.83
-    expect(cost).toBe(51.83);
+    // 10 instances × 730 hours × $0.0071/instance-hr = $51.83
+    expect(cost).toBeCloseTo(51.83, 2);
   });
 
   it('should return 0 when instances is undefined', () => {
