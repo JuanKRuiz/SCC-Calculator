@@ -405,7 +405,7 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="mt-6 text-center text-[10px] text-slate-400">
-             <p>© 2026 - SCC Pricing Calculator :)</p>
+             <p>© 2026 - SCC Pricing Calculator</p>
           </div>
         </div>
       </footer>
