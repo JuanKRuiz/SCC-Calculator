@@ -95,12 +95,12 @@ export const CostCharts: React.FC<CostChartsProps> = ({ costResult, resources })
       <div className="w-full">
         
         {/* Pie Chart: Cost Distribution */}
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col min-h-[400px]">
+        <div className="bg-background-card p-6 rounded-xl shadow-sm border border-border-subtle flex flex-col min-h-[400px]">
           <div className="mb-4">
-             <h3 className="text-lg font-medium text-slate-800">
+             <h3 className="text-lg font-medium text-primary">
               {t('premiumCostBreakdown')}
             </h3>
-            <p className="text-sm text-slate-500">{t('distByResource')}</p>
+            <p className="text-sm text-secondary">{t('distByResource')}</p>
           </div>
           
           {groupedPieData.length > 0 ? (
@@ -133,8 +133,8 @@ export const CostCharts: React.FC<CostChartsProps> = ({ costResult, resources })
                 </ResponsiveContainer>
                 {/* Center Label for Total */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">{t('total')}</span>
-                  <span className="text-xl font-bold text-slate-800">{formatCurrencyCompact(totalCost)}</span>
+                  <span className="text-xs text-tertiary font-bold uppercase tracking-wider">{t('total')}</span>
+                  <span className="text-xl font-bold text-primary">{formatCurrencyCompact(totalCost)}</span>
                 </div>
               </div>
 
@@ -147,23 +147,23 @@ export const CostCharts: React.FC<CostChartsProps> = ({ costResult, resources })
                       .map((entry, index) => {
                       const percent = totalCost > 0 ? ((entry.value / totalCost) * 100).toFixed(1) : '0';
                       return (
-                        <div key={index} className="flex items-center justify-between p-2 rounded hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group">
+                        <div key={index} className="flex items-center justify-between p-2 rounded hover:bg-background-alt transition-colors border border-transparent hover:border-border-subtle group">
                            <div className="flex items-center gap-2 overflow-hidden">
                               <div 
                                 className="w-2.5 h-2.5 rounded-full shrink-0 shadow-sm" 
                                 style={{ backgroundColor: PIE_COLORS[index % PIE_COLORS.length] }}
                               />
                               <div className="min-w-0">
-                                <p className="text-xs font-medium text-slate-700 truncate group-hover:text-slate-900 transition-colors" title={entry.name}>
+                                <p className="text-xs font-medium text-primary truncate transition-colors" title={entry.name}>
                                   {entry.name}
                                 </p>
                               </div>
                            </div>
                            <div className="text-right ml-2 shrink-0">
-                             <span className="block text-xs font-bold text-slate-600 font-mono">
+                             <span className="block text-xs font-bold text-primary font-mono">
                                {formatCurrencyCompact(entry.value)}
                              </span>
-                             <span className="block text-[10px] text-slate-400 font-medium">{percent}%</span>
+                             <span className="block text-[10px] text-tertiary font-medium">{percent}%</span>
                            </div>
                         </div>
                       );
@@ -180,82 +180,82 @@ export const CostCharts: React.FC<CostChartsProps> = ({ costResult, resources })
       </div>
 
       {/* Comparative Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
-           <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wider">{t('detailedComparison')}</h3>
+      <div className="bg-background-card rounded-xl shadow-sm border border-border-subtle overflow-hidden">
+        <div className="bg-background-alt px-6 py-4 border-b border-border-subtle">
+           <h3 className="text-sm font-bold text-primary uppercase tracking-wider">{t('detailedComparison')}</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr>
-                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">{t('tier')}</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 text-right">{t('estMonthlyCost')}</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">{t('keyFeatureDelta')}</th>
+                <th className="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-wider border-b border-border-subtle">{t('tier')}</th>
+                <th className="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-wider border-b border-border-subtle text-right">{t('estMonthlyCost')}</th>
+                <th className="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-wider border-b border-border-subtle">{t('keyFeatureDelta')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-border-subtle">
               
               {/* Premium PAYG Row */}
-              <tr className="hover:bg-indigo-50/50 transition-colors">
+              <tr className="hover:bg-accent-primary/5 transition-colors">
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2">
-                    <div className={`w-3 h-3 rounded-full bg-[${BRAND_COLORS.BLUE}]`}></div>
-                    <span className="font-bold text-indigo-700">{t('premiumTier')} <span className="text-xs font-normal text-slate-500">({t('payGoShort')})</span></span>
+                    <div className="w-3 h-3 rounded-full bg-brand-blue"></div>
+                    <span className="font-bold text-brand-blue">{t('premiumTier')} <span className="text-xs font-normal text-secondary">({t('payGoShort')})</span></span>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-right font-mono font-bold text-indigo-700">
+                <td className="px-6 py-4 text-right font-mono font-bold text-brand-blue">
                   {formatCurrency(costResult.totalMonthly.premiumPayGo)}
                 </td>
-                <td className="px-6 py-4 text-sm text-slate-700">
+                <td className="px-6 py-4 text-sm text-primary">
                    <span dangerouslySetInnerHTML={{__html: t('featPremium')}} />
                 </td>
               </tr>
 
                {/* Premium Org Level (Subscription) Row */}
-              <tr className="hover:bg-blue-50/50 transition-colors bg-slate-50/30">
+              <tr className="hover:bg-accent-secondary/5 transition-colors bg-background-alt/50">
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2 ml-5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-slate-400"></div>
-                    <span className="font-semibold text-slate-600">{t('orgLevel')} <span className="text-xs font-normal italic text-slate-400">({t('orgLevelDesc')})</span></span>
+                    <div className="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+                    <span className="font-semibold text-secondary">{t('orgLevel')} <span className="text-xs font-normal italic text-tertiary">({t('orgLevelDesc')})</span></span>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-right font-mono text-slate-600">
+                <td className="px-6 py-4 text-right font-mono text-secondary">
                   {formatCurrency(costResult.totalMonthly.premiumSubscription)}
                 </td>
-                <td className="px-6 py-4 text-sm text-slate-500 italic text-xs">
+                <td className="px-6 py-4 text-sm text-tertiary italic text-xs">
                    {t('requiresNegotiation')}
                 </td>
               </tr>
 
               {/* Enterprise Row */}
-              <tr className="hover:bg-slate-50 transition-colors">
+              <tr className="hover:bg-background-alt transition-colors">
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2">
-                    <div className={`w-3 h-3 rounded-full bg-[${BRAND_COLORS.GREEN}]`}></div>
-                    <span className="font-semibold text-slate-700">{t('enterpriseTier')}</span>
+                    <div className="w-3 h-3 rounded-full bg-brand-green"></div>
+                    <span className="font-semibold text-primary">{t('enterpriseTier')}</span>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-right font-mono text-slate-600 italic">
+                <td className="px-6 py-4 text-right font-mono text-secondary italic">
                   {costResult.totalMonthly.enterprise}
                 </td>
-                <td className="px-6 py-4 text-sm text-slate-600">
+                <td className="px-6 py-4 text-sm text-primary">
                    <span dangerouslySetInnerHTML={{__html: t('featEnterprise')}} />
                 </td>
               </tr>
 
                {/* Model Armor Row - Only if cost > 0 */}
                {costResult.totalMonthly.modelArmorCost > 0 && (
-                <tr className="hover:bg-violet-50/50 transition-colors border-t-2 border-slate-100">
+                <tr className="hover:bg-accent-primary/5 transition-colors border-t-2 border-border-subtle">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
-                      <div className={`w-3 h-3 rounded-full bg-[${BRAND_COLORS.VIOLET}]`}></div>
-                      <span className="font-bold text-violet-700">{t('modelArmorTitle')}</span>
+                      <div className="w-3 h-3 rounded-full bg-brand-red"></div>
+                      <span className="font-bold text-accent-primary">{t('modelArmorTitle')}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-right font-mono font-bold text-violet-700">
+                  <td className="px-6 py-4 text-right font-mono font-bold text-accent-primary">
                     {formatCurrency(costResult.totalMonthly.modelArmorCost)}
                   </td>
-                  <td className="px-6 py-4 text-sm text-violet-900/70">
+                  <td className="px-6 py-4 text-sm text-accent-primary/70">
                      {t('modelArmorAddon')} / {t('modelArmorIncluded')}
                   </td>
                 </tr>

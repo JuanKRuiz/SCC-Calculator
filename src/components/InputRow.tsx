@@ -49,7 +49,7 @@ const FormattedNumberInput = ({
       min={min}
       max={max}
       placeholder={placeholder}
-      className="w-full bg-slate-50 border border-slate-300 text-slate-900 py-2.5 px-3 rounded-md font-mono focus:ring-1 focus:ring-indigo-500 outline-none"
+      className="w-full bg-background-alt border border-border-strong text-primary placeholder:text-tertiary/50 py-2.5 px-3 rounded-md font-mono focus:ring-1 focus:ring-accent-primary outline-none"
       value={displayValue}
       onChange={handleChange}
     />
@@ -63,37 +63,37 @@ export const InputRow: React.FC<InputRowProps> = ({ resource, onChange, onRemove
   const getResourceConfig = (type: ResourceType) => {
     switch (type) {
       case ResourceType.COMPUTE_ENGINE:
-        return { Icon: Server, iconColor: 'text-blue-600', bgColor: 'bg-blue-50', inputType: 'compute' };
+        return { Icon: Server, iconColor: 'text-brand-blue', bgColor: 'bg-brand-blue/10', inputType: 'compute' };
       case ResourceType.GKE_AUTOPILOT:
       case ResourceType.GKE_STANDARD:
-        return { Icon: Box, iconColor: 'text-emerald-600', bgColor: 'bg-emerald-50', inputType: 'compute' };
+        return { Icon: Box, iconColor: 'text-brand-green', bgColor: 'bg-brand-green/10', inputType: 'compute' };
       case ResourceType.CLOUD_SQL:
-        return { Icon: Database, iconColor: 'text-indigo-600', bgColor: 'bg-indigo-50', inputType: 'compute' };
+        return { Icon: Database, iconColor: 'text-accent-primary', bgColor: 'bg-accent-primary/10', inputType: 'compute' };
       case ResourceType.APP_ENGINE_FLEX:
       case ResourceType.DATAFLOW:
       case ResourceType.DATAPROC:
-        return { Icon: Activity, iconColor: 'text-cyan-600', bgColor: 'bg-cyan-50', inputType: 'compute' };
+        return { Icon: Activity, iconColor: 'text-accent-secondary', bgColor: 'bg-accent-secondary/10', inputType: 'compute' };
       
       case ResourceType.APP_ENGINE_STANDARD:
-        return { Icon: Layers, iconColor: 'text-orange-600', bgColor: 'bg-orange-50', inputType: 'instance' };
+        return { Icon: Layers, iconColor: 'text-brand-yellow', bgColor: 'bg-brand-yellow/10', inputType: 'instance' };
         
       case ResourceType.CLOUD_STORAGE_CLASS_A:
       case ResourceType.CLOUD_STORAGE_CLASS_B:
-        return { Icon: HardDrive, iconColor: 'text-slate-600', bgColor: 'bg-slate-100', inputType: 'storage' };
+        return { Icon: HardDrive, iconColor: 'text-secondary', bgColor: 'bg-background-alt', inputType: 'storage' };
       
       case ResourceType.BIGQUERY_ON_DEMAND:
-        return { Icon: FileText, iconColor: 'text-teal-600', bgColor: 'bg-teal-50', inputType: 'data' };
+        return { Icon: FileText, iconColor: 'text-brand-green', bgColor: 'bg-brand-green/10', inputType: 'data' };
       case ResourceType.BIGQUERY_CAPACITY:
-        return { Icon: Zap, iconColor: 'text-teal-600', bgColor: 'bg-teal-50', inputType: 'slots' };
+        return { Icon: Zap, iconColor: 'text-brand-green', bgColor: 'bg-brand-green/10', inputType: 'slots' };
         
       case ResourceType.ARTIFACT_REGISTRY:
-        return { Icon: Scan, iconColor: 'text-pink-600', bgColor: 'bg-pink-50', inputType: 'artifacts' };
+        return { Icon: Scan, iconColor: 'text-accent-primary', bgColor: 'bg-accent-primary/10', inputType: 'artifacts' };
 
       case ResourceType.MODEL_ARMOR:
-        return { Icon: ShieldAlert, iconColor: 'text-violet-600', bgColor: 'bg-violet-50', inputType: 'modelArmor' };
+        return { Icon: ShieldAlert, iconColor: 'text-accent-secondary', bgColor: 'bg-accent-secondary/10', inputType: 'modelArmor' };
 
       default:
-        return { Icon: Settings, iconColor: 'text-slate-600', bgColor: 'bg-slate-50', inputType: 'compute' };
+        return { Icon: Settings, iconColor: 'text-secondary', bgColor: 'bg-background-alt', inputType: 'compute' };
     }
   };
 
@@ -110,8 +110,8 @@ export const InputRow: React.FC<InputRowProps> = ({ resource, onChange, onRemove
           <>
             <div className="w-full md:w-3/12">
               <div className="flex items-center gap-1 mb-2">
-                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
-                  <Cpu size={14} className="text-slate-400" /> {t('unitVCpu')}
+                <label className="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1">
+                  <Cpu size={14} className="text-tertiary" /> {t('unitVCpu')}
                 </label>
                 <Tooltip text={t('tooltipVCpu')} />
               </div>
@@ -272,7 +272,7 @@ export const InputRow: React.FC<InputRowProps> = ({ resource, onChange, onRemove
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg border border-slate-200 mb-3 transition-all hover:shadow-md group">
+    <div className="bg-background-card p-4 rounded-lg border border-border-subtle mb-3 transition-all hover:shadow-md group">
       <div className="flex flex-col md:flex-row gap-6 items-end md:items-start justify-between">
         
         {/* Resource Type & Label Group */}
@@ -280,14 +280,14 @@ export const InputRow: React.FC<InputRowProps> = ({ resource, onChange, onRemove
           
           {/* Resource Type Selector */}
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">{t('envResource')}</label>
+            <label className="block text-xs font-bold text-secondary uppercase mb-2 tracking-wider">{t('envResource')}</label>
             <div className="flex items-center gap-3">
               <div className={`p-2 rounded-lg ${bgColor} ${iconColor}`}>
                 <Icon size={20} />
               </div>
               <div className="relative flex-grow">
                 <select
-                  className="w-full appearance-none bg-slate-50 border border-slate-300 text-slate-900 py-2.5 px-3 pr-8 rounded-md leading-tight focus:outline-none focus:bg-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-shadow font-medium"
+                  className="w-full appearance-none bg-background-alt border border-border-strong text-primary py-2.5 px-3 pr-8 rounded-md leading-tight focus:outline-none focus:bg-background-card focus:border-accent-primary focus:ring-1 focus:ring-accent-primary transition-shadow font-medium"
                   value={resource.type}
                   onChange={(e) => onChange(resource.id, 'type', e.target.value)}
                 >
@@ -295,7 +295,7 @@ export const InputRow: React.FC<InputRowProps> = ({ resource, onChange, onRemove
                     <option key={type} value={type}>{type}</option>
                   ))}
                 </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-tertiary">
                   <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                 </div>
               </div>
@@ -305,14 +305,14 @@ export const InputRow: React.FC<InputRowProps> = ({ resource, onChange, onRemove
           {/* Label Input */}
           <div>
             <div className="flex items-center gap-1 mb-1">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('labelTag')}</label>
+              <label className="text-[10px] font-bold text-tertiary uppercase tracking-wider">{t('labelTag')}</label>
             </div>
             <div className="flex items-center gap-2">
-              <Tag size={14} className="text-slate-300" />
+              <Tag size={14} className="text-tertiary" />
               <input
                 type="text"
                 placeholder={t('labelPlaceholder')}
-                className="w-full bg-white border-b border-slate-200 text-sm text-slate-600 py-1 px-1 focus:border-indigo-500 outline-none transition-colors"
+                className="w-full bg-background-card border-b border-border-subtle text-sm text-secondary py-1 px-1 focus:border-accent-primary outline-none transition-colors"
                 value={resource.label || ''}
                 onChange={(e) => onChange(resource.id, 'label', e.target.value)}
               />
@@ -328,11 +328,35 @@ export const InputRow: React.FC<InputRowProps> = ({ resource, onChange, onRemove
         <div className="w-full md:w-auto flex justify-end md:pb-2">
            <button 
              onClick={() => onRemove(resource.id)}
-             className="p-2 text-slate-400 hover:text-[#EA4335] hover:bg-red-50 rounded-full transition-colors"
-             aria-label={t('remove')}
+             className="text-tertiary hover:text-brand-red p-2 hover:bg-background-alt rounded-full transition-colors"
              title={t('remove')}
            >
-             <Trash2 size={18} />
+             {/* We need access to theme context here, or just check a class on body? 
+            Since we don't have easy context access inside this component without refactor, 
+            we will assume if the closest theme provider ... actually we can just check 
+            if document.documentElement or body has the theme class, but better to pass it or use a hook.
+            Wait, App.tsx passes nothing. We need to grab theme from storage or similar? 
+            Actually, let's look at how we did it in App.tsx. App.tsx has `theme` state. 
+            We should probably pass `theme` prop to InputRow or use a context.
+            
+            Given I shouldn't refactor everything, I will use a CSS-based approach or 
+            just assume the parent passes it. 
+            
+            Wait, I cannot access `theme` variable here unless I import useTheme or similar.
+            The current file doesn't have it.
+            
+            Let's check if there is a context. `App.tsx` manages theme state locally.
+            
+            QUICK FIX: The body has the class. I can use CSS to hide/show!
+            
+            Actually, let's implement the CSS switch trick:
+            Render BOTH, and use .theme-gravity to toggle display.
+        */}
+        <div className="relative w-9 h-9 hidden [.theme-gravity_&]:block shrink-0 overflow-hidden">
+             <div className="gf-sprite item-eyes-jar absolute top-1/2 left-1/2" 
+                  style={{ transform: 'translate(-50%, -50%) scale(0.35)', transformOrigin: 'center' }} />
+        </div>
+        <Trash2 size={18} className="[.theme-gravity_&]:hidden" />
            </button>
         </div>
       </div>
@@ -343,10 +367,10 @@ export const InputRow: React.FC<InputRowProps> = ({ resource, onChange, onRemove
 // Mini internal component for Tooltips
 const Tooltip: React.FC<{text: string}> = ({text}) => (
   <div className="group relative">
-    <HelpCircle size={14} className="text-slate-400 hover:text-indigo-600 cursor-help transition-colors" />
-    <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-800 text-white text-[10px] p-2 rounded shadow-lg z-20 text-center leading-snug">
+    <HelpCircle size={14} className="text-tertiary hover:text-accent-primary cursor-help transition-colors" />
+    <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 opacity-0 group-hover:opacity-100 transition-opacity bg-text-primary text-background-app text-[10px] p-2 rounded shadow-lg z-20 text-center leading-snug">
       {text}
-      <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800"></div>
+      <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-text-primary"></div>
     </div>
   </div>
 );

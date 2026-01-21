@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Caesar+Dressing&family=Special+Elite&display=swap');
+
+:root {
+  /* Gravity Falls Theme - 'Vintage Journal' Palette (Soft/Cream/Pastel) */
+  
+  /* Layout Surfaces - Soft Parchment & Cream */
+  --bg-app: #F4ECD8;        /* Aged Paper / Cream */
+  --bg-card: #FEFBF3;       /* Clean Parchment */
+  --bg-card-alt: #E8DECA;   /* Darker Paper Shadow */
+  
+  /* Text Colors - Organic Ink Tones */
+  --text-primary: #4A3B32;  /* Dark Sepia Ink */
+  --text-secondary: #8C7B70; /* Faded Ink */
+  --text-tertiary: #B0A195; /* Watermark Text */
+  
+  /* Brand Mapping (Pastel/Vintage Variants) */
+  --brand-blue: #7CB342;    /* Sage Green (Old Pine) - Swapped for better harmony */
+  --brand-red: #E57373;     /* Faded Red / Rust */
+  --brand-yellow: #FDD835;  /* Muted Gold */
+  --brand-green: #4DB6AC;   /* Teal / Patina */
+  
+  /* Functional Accents - Soft Pastels */
+  --accent-primary: #ec4899;     /* Mabel's Sweater (Soft Pink) */
+  --accent-primary-light: #FCE4EC; /* Pink Wash */
+  --accent-secondary: #7986CB;   /* Periwinkle (Dipper's Vest) */
+  
+  /* Borders */
+  --border-subtle: #D7CCC8; /* Light Paper Edge */
+  --border-strong: #A1887F; /* Leather Binding */
+  
+  /* Fonts */
+  --font-sans: 'Special Elite', cursive; /* Journal Style */
+  --font-display: 'Caesar Dressing', cursive; /* Bill Cipher Style */
+}
+
+/* Optional: Font override for Gravity Theme */
+body {
+  font-family: var(--font-sans), monospace; /* Journal aesthetic */
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), cursive; /* Bill Cipher aesthetic for headers */
+}
