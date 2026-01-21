@@ -15,13 +15,13 @@ export class BigQueryCostCalculator implements ICostCalculator {
   calculate(resource: ResourceInput, rates: BaseRates): number {
     if (this.isOnDemand) {
       // On-Demand: GB of data analyzed
-      const gbAnalyzed = resource.gbAnalyzed || 0;
+      const gbAnalyzed = resource.dataProcessedGB || 0;
       return gbAnalyzed * rates.BQ_ON_DEMAND_GB;
     } else {
       // Capacity: Slots × Hours
       const slots = resource.slots || 0;
       const hours = resource.hoursPerMonth || 0;
-      return slots * hours * rates.BQ_CAPACITY_SLOT_HOUR;
+      return slots * hours * rates.BQ_SLOT_HOUR;
     }
   }
 }

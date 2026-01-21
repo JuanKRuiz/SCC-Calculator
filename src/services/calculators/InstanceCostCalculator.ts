@@ -10,7 +10,7 @@ export class InstanceCostCalculator implements ICostCalculator {
     const instances = resource.instances || 0;
     const hours = resource.hoursPerMonth || 0;
     
-    // Instances × Hours × Premium instance rate
-    return instances * hours * rates.PREMIUM_INSTANCE_HOUR;
+    // Instances × Hours × Premium vCore rate (same rate used for instance-based pricing)
+    return instances * hours * rates.PREMIUM_VCORE_HOUR;
   }
 }

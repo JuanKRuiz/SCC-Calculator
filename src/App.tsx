@@ -3,7 +3,7 @@ import { ResourceInput, ResourceType, CostResult, DEFAULT_PRICING_RATES, Pricing
 import { InputRow } from './components/InputRow';
 import { CostCharts } from './components/CostCharts';
 import { fetchSCCPricing } from './services/pricingApi';
-import { ShieldCheck, Plus, Calculator, Info, ExternalLink, RefreshCw, Download, Lock, AlertTriangle, Cloud, Loader2, Calendar, Sparkles, Globe, Building2, TrendingUp, ShieldAlert } from 'lucide-react';
+import { ShieldCheck, Plus, Calculator, Info, ExternalLink, RefreshCw, Download, Lock, AlertTriangle, Cloud, Loader2, Calendar, Sparkles, Globe, Building2, TrendingUp, ShieldAlert, Linkedin } from 'lucide-react';
 import { useLanguage } from './context/LanguageContext';
 import { Language } from './i18n/translations';
 import { SCCCostService } from './services/SCCCostService';
@@ -388,7 +388,10 @@ const App: React.FC = () => {
           <div className="mt-12 pt-8 border-t border-slate-200 flex justify-center">
             <div className="flex items-center gap-3">
               <p className="text-slate-600 text-sm">
-                {t('madeBy')} <a href="https://www.linkedin.com/in/juankruiz/" target="_blank" rel="noreferrer" className="font-bold text-slate-800 hover:text-indigo-600 transition-colors">JuanK Ruiz</a> {t('withPowerOf')}
+                {t('madeBy')} <a href="https://www.linkedin.com/in/juankruiz/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-bold text-blue-600 hover:text-blue-700 transition-colors">
+                  <Linkedin size={14} className="flex-shrink-0" />
+                  JuanK Ruiz
+                </a> {t('withPowerOf')}
               </p>
               
               <div className="flex items-center gap-2 bg-[#f3e8ff] px-4 py-1.5 rounded-xl border border-[#e9d5ff]">
