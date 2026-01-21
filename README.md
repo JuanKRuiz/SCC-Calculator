@@ -1,6 +1,6 @@
 # SCC Cost Calculator 🛡️
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) ![React](https://img.shields.io/badge/react-v19.0-61DAFB?logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/typescript-v5.0-3178C6?logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/vite-v6.0-646CFF?logo=vite&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-v3.0-38B2AC?logo=tailwind-css&logoColor=white)
+![License](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg) ![React](https://img.shields.io/badge/react-v19.0-61DAFB?logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/typescript-v5.0-3178C6?logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/vite-v6.0-646CFF?logo=vite&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-v3.0-38B2AC?logo=tailwind-css&logoColor=white)
 
 A professional cost estimation tool used to calculate and compare pricing for **Google Cloud Security Command Center (SCC)** across Premium and Enterprise tiers. This application helps architects and CISO teams project monthly costs based on workload consumption.
 
@@ -95,14 +95,13 @@ scc-cost-calculator/
 
 ## 🤝 Contribution
 
-Contributions are welcome! Please run `npm run lint` before submitting a Pull Request.
+Contributions are welcome! We want to make this the standard for SCC estimation.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Please read our **[Contributing Guidelines](CONTRIBUTING.md)** for details on how to report issues and the process for submitting pull requests.
+
+
+Also check out our **[Technical FAQ](FAQ.md)** for more context on the architecture and design decisions.
 
 ## 📄 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). See `LICENSE` for more information.

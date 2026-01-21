@@ -198,7 +198,9 @@ const App: React.FC = () => {
     const csvContent = "data:text/csv;charset=utf-8," 
       + headers.join(",") + "\n" 
       + rows.join("\n") 
-      + `\n,,,,,${t('estMonthlyCost')},${calculateCosts.totalMonthly.premiumPayGo.toFixed(2)}`;
+      + `\n,,,,,${t('estMonthlyCost')} - ${t('payGo')},${calculateCosts.totalMonthly.premiumPayGo.toFixed(2)}`
+      + `\n,,,,,${t('estMonthlyCost')} - ${t('orgLevel')},${calculateCosts.totalMonthly.premiumSubscription.toFixed(2)}`
+      + `\n,,,,,${t('ratesEffective')},"${pricingRates.lastUpdated}"`;
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
@@ -468,7 +470,7 @@ const App: React.FC = () => {
                 <h5 className="font-bold text-lg text-[#7c2d12]">{t('disclaimerTitle')}</h5>
               </div>
               <p className="leading-relaxed mb-3 text-[#7c2d12]">
-                {t('disclaimerDesc')}
+                {t('disclaimerDesc')} <a href="https://cloud.google.com/security-command-center/pricing" target="_blank" rel="noopener noreferrer" className="font-bold underline hover:text-orange-600">Google Cloud Documentation (Source of Truth)</a>.
               </p>
             </div>
           </div>
