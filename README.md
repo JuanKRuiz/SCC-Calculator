@@ -1,4 +1,5 @@
 # SCC Cost Calculator 🛡️
+<!-- CI Smoke Test: 2026-01-20 Run #2 -->
 
 ![License](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg) ![React](https://img.shields.io/badge/react-v19.0-61DAFB?logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/typescript-v5.0-3178C6?logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/vite-v6.0-646CFF?logo=vite&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-v3.0-38B2AC?logo=tailwind-css&logoColor=white)
 
