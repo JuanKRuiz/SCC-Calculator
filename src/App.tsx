@@ -10,6 +10,24 @@ import { SCCCostService } from './services/SCCCostService';
 
 const App: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
+  const [theme, setTheme] = useState<'corporate' | 'gravity'>('corporate');
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'corporate' ? 'gravity' : 'corporate';
+    setTheme(newTheme);
+    const themeLink = document.getElementById('theme-stylesheet') as HTMLLinkElement;
+    if (themeLink) {
+      themeLink.href = newTheme === 'corporate' ? '/css/theme-base.css' : '/css/theme-gravity.css';
+    }
+    
+    // Toggle class for CSS-based component switching (e.g. InputRow)
+    if (newTheme === 'gravity') {
+      document.body.classList.add('theme-gravity');
+    } else {
+      document.body.classList.remove('theme-gravity');
+    }
+  };
+
   const [resources, setResources] = useState<ResourceInput[]>([
     { id: '1', type: ResourceType.COMPUTE_ENGINE, label: 'Prod-Web-Cluster', vCpus: 24, hoursPerMonth: 730 },
     { id: '2', type: ResourceType.GKE_AUTOPILOT, label: 'Backend-Services', vCpus: 64, hoursPerMonth: 730 },
@@ -121,47 +139,66 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans flex flex-col text-slate-900">
+    <div className="min-h-screen bg-background-app font-sans flex flex-col text-primary transition-colors duration-300">
       
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm">
+      <header className="bg-background-card border-b border-border-subtle sticky top-0 z-10 shadow-sm transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-             <div className="relative w-8 h-8 flex items-center justify-center">
-               <ShieldCheck size={32} className="text-[#4285F4]" strokeWidth={2} />
-             </div>
+             <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
+               {theme === 'gravity' ? (
+                 <div 
+                   className="gf-sprite icon-question absolute top-1/2 left-1/2" 
+                   style={{ 
+                     transform: 'translate(-50%, -50%) scale(0.28)', 
+                     transformOrigin: 'center' 
+                   }} 
+                 />
+               ) : (
+                 <ShieldCheck size={32} className="text-brand-blue" strokeWidth={2} />
+               )}
+            </div>
             <div>
-              <h1 className="text-xl font-normal text-slate-700 tracking-tight leading-none">{t('appTitle')}</h1>
+              <h1 className="text-xl font-normal text-secondary tracking-tight leading-none">{t('appTitle')}</h1>
             </div>
           </div>
           <div className="flex items-center gap-4">
             
+            {/* Theme Toggler */}
+            <button 
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-background-alt transition-colors text-secondary"
+              title="Toggle Theme"
+            >
+              {theme === 'corporate' ? <Sparkles size={18} /> : <Building2 size={18} />}
+            </button>
+
             {/* Language Switcher */}
-            <div className="flex items-center bg-slate-100 rounded-lg p-1">
+            <div className="flex items-center bg-background-alt rounded-lg p-1">
               <button 
                 onClick={() => setLanguage('es')}
-                className={`px-3 py-1 text-xs font-bold rounded transition-colors ${language === 'es' ? 'bg-white shadow-sm text-indigo-600' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`px-3 py-1 text-xs font-bold rounded transition-colors ${language === 'es' ? 'bg-background-card shadow-sm text-accent-primary' : 'text-secondary hover:text-primary'}`}
               >
                 ES
               </button>
               <button 
                 onClick={() => setLanguage('en')}
-                className={`px-3 py-1 text-xs font-bold rounded transition-colors ${language === 'en' ? 'bg-white shadow-sm text-indigo-600' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`px-3 py-1 text-xs font-bold rounded transition-colors ${language === 'en' ? 'bg-background-card shadow-sm text-accent-primary' : 'text-secondary hover:text-primary'}`}
               >
                 EN
               </button>
                <button 
                 onClick={() => setLanguage('pt')}
-                className={`px-3 py-1 text-xs font-bold rounded transition-colors ${language === 'pt' ? 'bg-white shadow-sm text-indigo-600' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`px-3 py-1 text-xs font-bold rounded transition-colors ${language === 'pt' ? 'bg-background-card shadow-sm text-accent-primary' : 'text-secondary hover:text-primary'}`}
               >
                 PT
               </button>
             </div>
 
-            <div className="hidden sm:flex items-center bg-slate-50 border border-slate-200 rounded-full px-3 py-1 ml-2">
+            <div className="hidden sm:flex items-center bg-background-alt border border-border-subtle rounded-full px-3 py-1 ml-2">
               <div className="flex flex-col">
-                <span className="text-[9px] text-slate-400 uppercase font-bold tracking-wider leading-none mb-0.5">{t('ratesEffective')}</span>
-                <span className="text-[10px] font-bold text-emerald-600 leading-none">
+                <span className="text-[9px] text-tertiary uppercase font-bold tracking-wider leading-none mb-0.5">{t('ratesEffective')}</span>
+                <span className="text-[10px] font-bold text-brand-green leading-none">
                    {pricingRates.lastUpdated}
                 </span>
               </div>
@@ -177,30 +214,53 @@ const App: React.FC = () => {
           {/* Left Column: Inputs */}
           <div className="xl:col-span-2 space-y-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-normal text-slate-700 flex items-center gap-2">
+              <h2 className="text-lg font-normal text-primary flex items-center gap-2">
                 {t('infraScope')}
               </h2>
               <div className="flex gap-2">
                 <button 
                   onClick={loadDemoData}
-                  className="flex items-center gap-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded shadow-sm text-sm font-medium transition-colors"
+                  className="flex items-center gap-2 bg-background-card border border-border-subtle hover:bg-background-alt text-secondary px-3 py-2 rounded shadow-sm text-sm font-medium transition-colors"
                 >
-                  <RefreshCw size={14} /> {t('loadDemo')}
+                  {theme === 'gravity' ? (
+                     <div className="relative w-6 h-6 shrink-0 overflow-hidden">
+                        <div className="gf-sprite item-memory-gun absolute top-1/2 left-1/2" 
+                             style={{ transform: 'translate(-50%, -50%) scale(0.22)', transformOrigin: 'center' }} />
+                     </div>
+                  ) : (
+                    <RefreshCw size={14} /> 
+                  )}
+                  {t('loadDemo')}
                 </button>
                 <button 
                   onClick={addResource}
-                  className="flex items-center gap-2 bg-white border border-slate-300 hover:bg-indigo-50 text-indigo-600 px-4 py-2 rounded shadow-sm text-sm font-medium transition-colors"
+                  className="flex items-center gap-2 bg-background-card border border-accent-primary hover:bg-accent-primary/10 text-accent-primary px-4 py-2 rounded shadow-sm text-sm font-medium transition-colors"
                 >
-                  <Plus size={16} /> {t('addWorkload')}
+                   {theme === 'gravity' ? (
+                     <div className="relative w-6 h-6 shrink-0 overflow-hidden">
+                        <div className="gf-sprite item-grappling absolute top-1/2 left-1/2" 
+                             style={{ transform: 'translate(-50%, -50%) scale(0.22)', transformOrigin: 'center' }} />
+                     </div>
+                  ) : (
+                    <Plus size={16} /> 
+                  )}
+                  {t('addWorkload')}
                 </button>
               </div>
             </div>
 
-            <div className="bg-[#FEF7E0] border border-[#FEEFC3] rounded-lg p-4 flex gap-3 text-sm text-[#5F6368] shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-[#FEEFC3]"></div>
-              <Info className="shrink-0 mt-0.5 text-[#4285F4]" size={20} />
+            <div className="bg-brand-yellow/10 border border-brand-yellow/30 rounded-lg p-4 flex gap-3 text-sm text-secondary shadow-sm relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-1 h-full bg-brand-yellow/30"></div>
+              {theme === 'gravity' ? (
+                  <div className="relative w-8 h-8 shrink-0 overflow-hidden">
+                    <div className="gf-sprite icon-journal-hand absolute top-1/2 left-1/2" 
+                         style={{ transform: 'translate(-50%, -50%) scale(0.28)', transformOrigin: 'center' }} />
+                  </div>
+               ) : (
+                 <Info className="shrink-0 mt-0.5 text-brand-blue" size={20} />
+               )}
               <div>
-                <p className="font-bold mb-1 text-slate-800">{t('pricingLogicTitle')}</p>
+                <p className="font-bold mb-1 text-primary">{t('pricingLogicTitle')}</p>
                 <p dangerouslySetInnerHTML={{__html: t('pricingLogicDesc')}} />
               </div>
             </div>
@@ -234,17 +294,25 @@ const App: React.FC = () => {
             <div className="sticky top-24 space-y-6">
               
               {/* Grand Total Card */}
-              <div className={`rounded-lg shadow-sm border overflow-hidden ${calculateCosts.isEnterpriseRecommended ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-slate-200'}`}>
+              <div className={`rounded-lg shadow-sm border overflow-hidden transition-colors ${calculateCosts.isEnterpriseRecommended ? 'bg-accent-primary/5 border-accent-primary/20' : 'bg-background-card border-border-subtle'}`}>
                 <div className="h-1 w-full flex">
-                  <div className="bg-[#4285F4] flex-1"></div>
-                  <div className="bg-[#EA4335] flex-1"></div>
-                  <div className="bg-[#FBBC04] flex-1"></div>
-                  <div className="bg-[#34A853] flex-1"></div>
+                  <div className="bg-brand-blue flex-1"></div>
+                  <div className="bg-brand-red flex-1"></div>
+                  <div className="bg-brand-yellow flex-1"></div>
+                  <div className="bg-brand-green flex-1"></div>
                 </div>
                 
                 <div className="p-6">
                    <div className="flex items-center justify-between mb-4">
-                      <h3 className={`text-xs font-bold uppercase tracking-widest ${calculateCosts.isEnterpriseRecommended ? 'text-indigo-700' : 'text-slate-500'}`}>{t('estMonthlyCost')}</h3>
+                       <h3 className={`text-xs font-bold uppercase tracking-widest flex items-center gap-2 ${calculateCosts.isEnterpriseRecommended ? 'text-indigo-700' : 'text-slate-500'}`}>
+                          {theme === 'gravity' && (
+                             <div className="relative w-8 h-8 shrink-0 overflow-hidden -my-2">
+                                <div className="gf-sprite item-8ball-cane absolute top-1/2 left-1/2" 
+                                     style={{ transform: 'translate(-50%, -50%) scale(0.28)', transformOrigin: 'center' }} />
+                             </div>
+                          )}
+                          {t('estMonthlyCost')}
+                       </h3>
                       {!calculateCosts.isEnterpriseRecommended && (
                         <span className="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide">{t('recommended')}</span>
                       )}
@@ -253,20 +321,28 @@ const App: React.FC = () => {
                   {/* Two Column Layout for Premium PAYG vs Org */}
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     {/* PAYG */}
-                    <div className={`p-3 rounded-lg border ${calculateCosts.isEnterpriseRecommended ? 'border-slate-100 bg-slate-50 opacity-50' : 'border-indigo-100 bg-indigo-50/50'}`}>
-                      <span className="block text-[10px] uppercase font-bold text-indigo-600 mb-1">{t('payGo')}</span>
-                      <span className="block text-2xl font-bold text-slate-900 tracking-tight">
+                    <div className={`p-3 rounded-lg border flex flex-col justify-between relative overflow-hidden ${calculateCosts.isEnterpriseRecommended ? 'border-border-subtle bg-background-alt opacity-50' : 'border-accent-primary/20 bg-accent-primary/5'}`}>
+                      <div className="flex justify-between items-start">
+                         <span className="block text-[10px] uppercase font-bold text-accent-primary mb-1">{t('payGo')}</span>
+                         {theme === 'gravity' && (
+                             <div className="relative w-9 h-9 shrink-0 overflow-hidden -mr-2 -mt-2">
+                                <div className="gf-sprite item-pitt-cola absolute top-1/2 left-1/2" 
+                                     style={{ transform: 'translate(-50%, -50%) scale(0.35)', transformOrigin: 'center' }} />
+                             </div>
+                         )}
+                      </div>
+                      <span className="block text-2xl font-bold text-primary tracking-tight">
                         {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(calculateCosts.totalMonthly.premiumPayGo)}
                       </span>
                     </div>
 
                     {/* Org Level */}
-                    <div className={`p-3 rounded-lg border ${calculateCosts.isEnterpriseRecommended ? 'border-slate-100 bg-slate-50 opacity-50' : 'border-blue-100 bg-blue-50/50'}`}>
-                       <span className="block text-[10px] uppercase font-bold text-blue-600 mb-1">{t('orgLevel')}</span>
-                       <span className="block text-2xl font-bold text-slate-900 tracking-tight">
+                    <div className={`p-3 rounded-lg border ${calculateCosts.isEnterpriseRecommended ? 'border-border-subtle bg-background-alt opacity-50' : 'border-accent-secondary/20 bg-accent-secondary/5'}`}>
+                       <span className="block text-[10px] uppercase font-bold text-accent-secondary mb-1">{t('orgLevel')}</span>
+                       <span className="block text-2xl font-bold text-primary tracking-tight">
                         {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(calculateCosts.totalMonthly.premiumSubscription)}
                       </span>
-                       <span className="block text-[9px] text-slate-500 italic mt-0.5">{t('orgLevelDesc')}</span>
+                       <span className="block text-[9px] text-secondary italic mt-0.5">{t('orgLevelDesc')}</span>
                     </div>
                   </div>
 
@@ -285,38 +361,45 @@ const App: React.FC = () => {
 
                   {/* High Cost / Enterprise Recommendation Alert */}
                   {calculateCosts.isEnterpriseRecommended && (
-                    <div className="bg-white border border-indigo-200 rounded-lg p-3 mb-6 shadow-sm animate-pulse-slow">
-                       <div className="flex items-center gap-2 mb-2 text-indigo-700">
-                         <Building2 size={18} />
+                    <div className="bg-background-card border border-accent-primary/30 rounded-lg p-3 mb-6 shadow-sm animate-pulse-slow">
+                       <div className="flex items-center gap-2 mb-2 text-accent-primary">
+                         {theme === 'gravity' ? (
+                           <div className="relative w-10 h-10 shrink-0 overflow-hidden -my-2 mr-1">
+                              <div className="gf-sprite anim-bill absolute top-1/2 left-1/2" 
+                                   style={{ transform: 'translate(-50%, -50%) scale(0.4)', transformOrigin: 'center' }} />
+                           </div>
+                         ) : (
+                           <Building2 size={18} />
+                         )}
                          <span className="font-bold text-sm">{t('recEnterpriseTitle')}</span>
-                         <span className="ml-auto bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">{t('bestValue')}</span>
+                         <span className="ml-auto bg-accent-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">{t('bestValue')}</span>
                        </div>
-                       <p className="text-xs text-indigo-900/80 leading-relaxed mb-2">
+                       <p className="text-xs text-secondary leading-relaxed mb-2">
                          {t('recEnterpriseDesc')}
                        </p>
-                       <p className="text-[10px] text-indigo-700 bg-indigo-50 p-2 rounded border border-indigo-100 italic" dangerouslySetInnerHTML={{__html: t('recEnterpriseReason')}}>
+                       <p className="text-[10px] text-accent-primary bg-accent-primary/5 p-2 rounded border border-accent-primary/10 italic" dangerouslySetInnerHTML={{__html: t('recEnterpriseReason')}}>
                        </p>
                     </div>
                   )}
                   
-                  <div className="space-y-3 pt-4 border-t border-slate-100">
-                     <div className={`flex justify-between items-center text-sm group p-2 -mx-2 rounded transition-colors ${calculateCosts.isEnterpriseRecommended ? 'bg-indigo-100/50' : 'hover:bg-slate-50'}`}>
-                      <span className={`transition-colors ${calculateCosts.isEnterpriseRecommended ? 'font-bold text-indigo-800' : 'text-slate-500 group-hover:text-slate-700'}`}>{t('enterpriseTier')}</span>
-                      <span className={`font-medium italic ${calculateCosts.isEnterpriseRecommended ? 'text-indigo-800' : 'text-slate-900'}`}>
+                  <div className="space-y-3 pt-4 border-t border-border-subtle">
+                     <div className={`flex justify-between items-center text-sm group p-2 -mx-2 rounded transition-colors ${calculateCosts.isEnterpriseRecommended ? 'bg-accent-primary/10' : 'hover:bg-background-alt'}`}>
+                      <span className={`transition-colors ${calculateCosts.isEnterpriseRecommended ? 'font-bold text-accent-primary' : 'text-secondary group-hover:text-primary'}`}>{t('enterpriseTier')}</span>
+                      <span className={`font-medium italic ${calculateCosts.isEnterpriseRecommended ? 'text-accent-primary' : 'text-primary'}`}>
                         {calculateCosts.totalMonthly.enterprise}
                       </span>
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-slate-100">
+                  <div className="mt-6 pt-4 border-t border-border-subtle">
                     <div className="grid grid-cols-2 gap-4 text-center">
-                       <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
-                          <span className="block text-2xl font-normal text-blue-700">{totalComputeCount > 0 ? totalComputeCount.toLocaleString() : '-'}</span>
-                          <span className="text-[10px] text-blue-600/70 uppercase font-bold tracking-wider">{t('totalVcpus')}</span>
+                       <div className="p-3 bg-brand-blue/10 rounded-lg border border-brand-blue/20">
+                          <span className="block text-2xl font-normal text-brand-blue">{totalComputeCount > 0 ? totalComputeCount.toLocaleString() : '-'}</span>
+                          <span className="text-[10px] text-brand-blue/70 uppercase font-bold tracking-wider">{t('totalVcpus')}</span>
                        </div>
-                       <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-100">
-                          <span className="block text-2xl font-normal text-emerald-700">{totalResources}</span>
-                          <span className="text-[10px] text-emerald-600/70 uppercase font-bold tracking-wider">{t('workloads')}</span>
+                       <div className="p-3 bg-brand-green/10 rounded-lg border border-brand-green/20">
+                          <span className="block text-2xl font-normal text-brand-green">{totalResources}</span>
+                          <span className="text-[10px] text-brand-green/70 uppercase font-bold tracking-wider">{t('workloads')}</span>
                        </div>
                     </div>
                   </div>
@@ -324,7 +407,7 @@ const App: React.FC = () => {
                   {/* Primary Export Button */}
                   <button 
                     onClick={downloadCSV}
-                    className="w-full mt-6 flex items-center justify-center gap-2 bg-slate-900 text-white hover:bg-slate-800 py-3 rounded-lg text-sm font-bold transition-all shadow-md hover:shadow-lg transform active:scale-[0.98]"
+                    className="w-full mt-6 flex items-center justify-center gap-2 bg-primary text-background-card hover:bg-primary/90 py-3 rounded-lg text-sm font-bold transition-all shadow-md hover:shadow-lg transform active:scale-[0.98]"
                   >
                     <Download size={18} /> {t('exportCsv')}
                   </button>
@@ -332,19 +415,19 @@ const App: React.FC = () => {
               </div>
 
               {/* Value Proposition */}
-              <div className="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
-                 <h4 className="font-bold text-slate-500 mb-4 text-xs uppercase tracking-wide">{t('valueDrivers')}</h4>
-                 <ul className="space-y-3 text-sm text-slate-700">
+              <div className="bg-background-card border border-border-subtle p-5 rounded-lg shadow-sm">
+                 <h4 className="font-bold text-secondary mb-4 text-xs uppercase tracking-wide">{t('valueDrivers')}</h4>
+                 <ul className="space-y-3 text-sm text-primary">
                    <li className="flex items-start gap-3">
-                     <span className="text-[#34A853] font-bold mt-0.5">✓</span> 
+                     <span className="text-brand-green font-bold mt-0.5">✓</span> 
                      <span dangerouslySetInnerHTML={{__html: t('driver1')}} />
                    </li>
                    <li className="flex items-start gap-3">
-                     <span className="text-[#34A853] font-bold mt-0.5">✓</span> 
+                     <span className="text-brand-green font-bold mt-0.5">✓</span> 
                      <span dangerouslySetInnerHTML={{__html: t('driver2')}} />
                    </li>
                    <li className="flex items-start gap-3">
-                     <span className="text-[#34A853] font-bold mt-0.5">✓</span> 
+                     <span className="text-brand-green font-bold mt-0.5">✓</span> 
                      <span dangerouslySetInnerHTML={{__html: t('driver3')}} />
                    </li>
                  </ul>
@@ -360,51 +443,80 @@ const App: React.FC = () => {
       </main>
 
       {/* Footer / Disclaimers */}
-      <footer className="bg-white border-t border-slate-200 py-12 mt-8">
+      <footer className="bg-background-card border-t border-border-subtle py-12 mt-8 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
             {/* Privacy Section */}
-            <div className="bg-[#eff6ff] border-l-4 border-blue-500 p-6 rounded-r-lg shadow-sm">
-              <div className="flex items-center gap-2 mb-3 text-blue-900">
-                <Lock size={20} className="text-blue-500" strokeWidth={2} />
-                <h5 className="font-bold text-lg text-blue-900">{t('privacyTitle')}</h5>
+            <div className="bg-accent-secondary/5 border-l-4 border-accent-secondary p-6 rounded-r-lg shadow-sm">
+              <div className="flex items-center gap-2 mb-3 text-accent-secondary">
+                 {theme === 'gravity' ? (
+                     <div className="relative w-8 h-8 shrink-0 overflow-hidden">
+                        <div className="gf-sprite item-waddles absolute top-1/2 left-1/2" 
+                             style={{ transform: 'translate(-50%, -50%) scale(0.3)', transformOrigin: 'center' }} />
+                     </div>
+                  ) : (
+                    <Lock size={20} className="text-accent-secondary" strokeWidth={2} />
+                  )}
+                <h5 className="font-bold text-lg">{t('privacyTitle')}</h5>
               </div>
-              <p className="leading-relaxed text-slate-600" dangerouslySetInnerHTML={{__html: t('privacyDesc')}} />
+              <p className="leading-relaxed text-secondary" dangerouslySetInnerHTML={{__html: t('privacyDesc')}} />
             </div>
 
             {/* Disclaimer Section */}
-            <div className="bg-[#fff7ed] border-l-4 border-orange-500 p-6 rounded-r-lg shadow-sm">
-               <div className="flex items-center gap-2 mb-3 text-amber-900">
-                <AlertTriangle size={20} className="text-orange-500" strokeWidth={2} />
-                <h5 className="font-bold text-lg text-[#7c2d12]">{t('disclaimerTitle')}</h5>
+            <div className="bg-brand-yellow/5 border-l-4 border-brand-yellow p-6 rounded-r-lg shadow-sm">
+               <div className="flex items-center gap-2 mb-3 text-brand-yellow">
+                 {theme === 'gravity' ? (
+                     <div className="relative w-8 h-8 shrink-0 overflow-hidden">
+                        <div className="gf-sprite icon-fez absolute top-1/2 left-1/2" 
+                             style={{ transform: 'translate(-50%, -50%) scale(0.3)', transformOrigin: 'center' }} />
+                     </div>
+                  ) : (
+                    <AlertTriangle size={20} className="text-brand-yellow" strokeWidth={2} />
+                  )}
+                <h5 className="font-bold text-lg">{t('disclaimerTitle')}</h5>
               </div>
-              <p className="leading-relaxed mb-3 text-[#7c2d12]">
-                {t('disclaimerDesc')} <a href="https://cloud.google.com/security-command-center/pricing" target="_blank" rel="noopener noreferrer" className="font-bold underline hover:text-orange-600">Google Cloud Documentation (Source of Truth)</a>.
+              <p className="leading-relaxed mb-3 text-primary">
+                {t('disclaimerDesc')} <a href="https://cloud.google.com/security-command-center/pricing" target="_blank" rel="noopener noreferrer" className="font-bold underline hover:text-accent-primary">Google Cloud Documentation (Source of Truth)</a>.
               </p>
             </div>
           </div>
 
           {/* Credits */}
-          <div className="mt-12 pt-8 border-t border-slate-200 flex justify-center">
+          <div className="mt-12 pt-8 border-t border-border-subtle flex flex-col items-center justify-center">
+             {theme === 'gravity' && (
+              <div className="mb-4">
+                 <div className="relative w-20 h-20 overflow-hidden shrink-0">
+                    <div className="gf-sprite anim-gnome-full absolute top-1/2 left-1/2" 
+                         style={{ transform: 'translate(-50%, -50%) scale(0.8)', transformOrigin: 'center' }} />
+                 </div>
+              </div>
+            )}
             <div className="flex items-center gap-3">
-              <p className="text-slate-600 text-sm">
-                {t('madeBy')} <a href="https://www.linkedin.com/in/juankruiz/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-bold text-blue-600 hover:text-blue-700 transition-colors">
+              <p className="text-secondary text-sm">
+                {t('madeBy')} <a href="https://www.linkedin.com/in/juankruiz/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-bold text-accent-primary hover:text-accent-secondary transition-colors">
                   <Linkedin size={14} className="flex-shrink-0" />
                   JuanK Ruiz
                 </a> {t('withPowerOf')}
               </p>
               
-              <div className="flex items-center gap-2 bg-[#f3e8ff] px-4 py-1.5 rounded-xl border border-[#e9d5ff]">
-                <Sparkles size={16} className="text-[#9333ea]" fill="#9333ea" />
-                <span className="font-bold text-[#9333ea] text-sm">Antigravity</span>
+               <div className="flex items-center gap-2 bg-accent-primary/5 px-4 py-1.5 rounded-xl border border-accent-primary/20">
+                 {theme === 'gravity' ? (
+                     <div className="relative w-6 h-6 shrink-0 overflow-hidden -ml-1">
+                        <div className="gf-sprite icon-shootingstar absolute top-1/2 left-1/2" 
+                             style={{ transform: 'translate(-50%, -50%) scale(0.25)', transformOrigin: 'center' }} />
+                     </div>
+                  ) : (
+                    <Sparkles size={16} className="text-accent-primary" fill="currentColor" />
+                  )}
+                <span className="font-bold text-accent-primary text-sm">Antigravity</span>
               </div>
               
-              <span className="text-slate-400 text-sm font-medium">
+              <span className="text-tertiary text-sm font-medium">
                 Antigravity - Google Intelligent IDE
               </span>
             </div>
           </div>
-          <div className="mt-6 text-center text-[10px] text-slate-400">
+          <div className="mt-6 text-center text-[10px] text-tertiary">
              <p>© 2026 - SCC Pricing Calculator. All rights reserved.</p>
           </div>
         </div>

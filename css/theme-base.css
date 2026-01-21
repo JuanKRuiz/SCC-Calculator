@@ -1,0 +1,26 @@
+:root {
+  /* Layout Surfaces */
+  --bg-app: #f8fafc;        /* slate-50 */
+  --bg-card: #ffffff;       /* white */
+  --bg-card-alt: #f1f5f9;   /* slate-100 */
+  
+  /* Text Colors */
+  --text-primary: #0f172a;  /* slate-900 */
+  --text-secondary: #64748b; /* slate-500 */
+  --text-tertiary: #94a3b8; /* slate-400 */
+  
+  /* Brand Colors (Google) */
+  --brand-blue: #4285F4;
+  --brand-red: #EA4335;
+  --brand-yellow: #FBBC04;
+  --brand-green: #34A853;
+  
+  /* Functional Accents */
+  --accent-primary: #4f46e5;     /* indigo-600 */
+  --accent-primary-light: #e0e7ff; /* indigo-100 */
+  --accent-secondary: #0ea5e9;   /* sky-500 / blue-500 */
+  
+  /* Borders */
+  --border-subtle: #e2e8f0; /* slate-200 */
+  --border-strong: #cbd5e1; /* slate-300 */
+}

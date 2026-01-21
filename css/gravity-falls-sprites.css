@@ -1,0 +1,67 @@
+/* Base Sprite Class */
+.gf-sprite {
+  width: 100px;  
+  height: 109px; /* Alto de celda ajustado (545 / 5) */
+  background-image: url('../img/sprites-gravity-falls-alpha-1000-545.png');
+  background-size: 1000px 545px; /* Escala conservando ratio */
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+/* --- FILA 1: GNOME ANIMATION (Frames 1-6) [Y: 0px] --- */
+@keyframes gnome-action {
+  0% { background-position: 0px 0px; }       /* Idle 1 */
+  15% { background-position: -100px 0px; }   /* Idle 2 */
+  30% { background-position: -200px 0px; }   /* Idle 3 */
+  45% { background-position: -300px 0px; }   /* Turn Left */
+  60% { background-position: -400px 0px; }   /* Turn Right */
+  75% { background-position: -500px 0px; }   /* Walk */
+  100% { background-position: 0px 0px; }
+}
+
+.anim-gnome-full {
+  animation: gnome-action 2s steps(1) infinite;
+}
+
+/* --- FILA 2: BILL CIPHER (Frames 1-3) & EXTRAS [Y: -109px] --- */
+@keyframes bill-transcendence {
+  0% { background-position: 0px -109px; }     /* Normal */
+  33% { background-position: -100px -109px; } /* Glowing Red */
+  66% { background-position: -200px -109px; } /* Blue Fire */
+  100% { background-position: 0px -109px; }
+}
+
+.anim-bill {
+  animation: bill-transcendence 1.2s steps(1) infinite;
+}
+
+/* --- FILA 3: ICONOGRAFÍA ZODIACO [Y: -218px] --- */
+.icon-pinetree      { background-position: 0px -218px; }
+.icon-shootingstar  { background-position: -100px -218px; }
+.icon-question      { background-position: -200px -218px; }
+.icon-journal-hand  { background-position: -300px -218px; }
+.icon-heart         { background-position: -400px -218px; }
+.icon-icebag        { background-position: -500px -218px; }
+.icon-llama         { background-position: -600px -218px; }
+.icon-fez           { background-position: -700px -218px; }
+.icon-glasses       { background-position: -800px -218px; }
+.icon-pentagram     { background-position: -900px -218px; }
+
+/* --- FILA 4: ÍTEMS [Y: -327px] --- */
+.item-dipper-hat    { background-position: 0px -327px; }
+.item-grappling     { background-position: -100px -327px; }
+.item-memory-gun    { background-position: -200px -327px; }
+.item-pitt-cola     { background-position: -300px -327px; }
+.item-die           { background-position: -400px -327px; }
+.item-eyes-jar      { background-position: -500px -327px; }
+.item-8ball-cane    { background-position: -600px -327px; }
+.item-waddles       { background-position: -700px -327px; }
+.item-smiledip      { background-position: -800px -327px; }
+.item-shack-sign    { background-position: -900px -327px; }
+
+/* --- FILA 5: CRITTERS [Y: -436px] --- */
+.critter-geodite    { background-position: 0px -436px; }
+.critter-multibear  { background-position: -100px -436px; }
+.critter-timebaby   { background-position: -200px -436px; }
+.critter-gompers    { background-position: -300px -436px; }
+.critter-shroom-1   { background-position: -400px -436px; }
