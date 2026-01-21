@@ -273,7 +273,7 @@ export const InputRow: React.FC<InputRowProps> = ({ resource, onChange, onRemove
 
   return (
     <div className="bg-white p-4 rounded-lg border border-slate-200 mb-3 transition-all hover:shadow-md group">
-      <div className="flex flex-col md:flex-row gap-6 items-end md:items-center justify-between">
+      <div className="flex flex-col md:flex-row gap-6 items-end md:items-start justify-between">
         
         {/* Resource Type & Label Group */}
         <div className="w-full md:w-5/12 space-y-4">

@@ -1,5 +1,20 @@
 # Contributing to SCC Cost Calculator
 
+*   **Author:** JuanK Ruiz
+*   **Date:** January 20, 2026
+*   **Subject:** Contribution Guidelines for SCC Cost Calculator
+*   **References:** [FAQ.md](FAQ.md), [README.md](README.md)
+*   **Status:** Living Document
+*   **Version:** v1.0
+
+---
+
+## Executive Summary
+
+The SCC Cost Calculator welcomes contributions from developers, architects, partners, and end-users at all skill levels. Non-technical contributions (documentation, testing, translations) are equally valued as code contributions. This guide outlines how to get started, the development workflow, code standards, and the submission process. All contributions must be licensed under CC BY 4.0 to maintain project consistency.
+
+---
+
 First off, thank you for considering contributing to the SCC Cost Calculator! 🎉
 
 This project is a community-driven effort to provide fast, accurate cost estimates for Google Cloud Security Command Center (SCC) deployments. Whether you're a developer, architect, partner, or end-user, there are many ways to contribute.
@@ -132,7 +147,44 @@ scc-cost-calculator/
 └── README.md           # Project documentation
 ```
 
-### Key Files to Know
+### Contribution Flow Diagram
+
+The following diagram illustrates the typical contribution workflow:
+
+```mermaid
+---
+config:
+  layout: elk
+  theme: default
+---
+graph LR
+    Fork[Fork Repository] --> Clone[Clone Locally]
+    Clone --> Branch{Create Feature<br/>Branch}
+    Branch --> Code[Write Code/<br/>Documentation]
+    Code --> Test[Test Changes]
+    Test --> Pass{Tests Pass?}
+    Pass -->|No| Fix[Fix Issues]
+    Fix --> Test
+    Pass -->|Yes| Commit[Commit Changes]
+    Commit --> Push[Push to Fork]
+    Push --> PR[Create Pull Request]
+    PR --> Review{Code Review}
+    Review -->|Changes Requested| Fix
+    Review -->|Approved| Merge[Merge to Main]
+    Merge --> Deploy[Auto-Deploy<br/>to GitHub Pages]
+    
+    classDef startClass fill:#4285F4,stroke:#1967D2,color:#fff
+    classDef processClass fill:#34A853,stroke:#0D652D,color:#fff
+    classDef decisionClass fill:#FBBC04,stroke:#F29900,color:#000
+    classDef endClass fill:#EA4335,stroke:#C5221F,color:#fff
+    
+    class Fork,Clone startClass
+    class Branch,Code,Test,Commit,Push,PR processClass
+    class Pass,Review decisionClass
+    class Fix,Merge,Deploy endClass
+```
+
+###  Key Files to Know
 
 - **`src/data/scc_rates.json`**: Official SCC pricing data
 - **`src/types/index.ts`**: TypeScript interfaces for resources and pricing

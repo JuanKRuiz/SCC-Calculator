@@ -6,6 +6,7 @@ import { fetchSCCPricing } from './services/pricingApi';
 import { ShieldCheck, Plus, Calculator, Info, ExternalLink, RefreshCw, Download, Lock, AlertTriangle, Cloud, Loader2, Calendar, Sparkles, Globe, Building2, TrendingUp, ShieldAlert } from 'lucide-react';
 import { useLanguage } from './context/LanguageContext';
 import { Language } from './i18n/translations';
+import { SCCCostService } from './services/SCCCostService';
 
 const App: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
@@ -75,100 +76,8 @@ const App: React.FC = () => {
   // COST CALCULATION ENGINE
   // ---------------------------------------------------------------------------
   const calculateCosts = useMemo((): CostResult => {
-    const details = resources.map(res => {
-      let cost = 0;
-
-      switch (res.type) {
-        // vCPU Based Services ($0.0071 / vCore-hr)
-        case ResourceType.COMPUTE_ENGINE:
-        case ResourceType.GKE_STANDARD:
-        case ResourceType.GKE_AUTOPILOT:
-        case ResourceType.APP_ENGINE_FLEX:
-        case ResourceType.DATAFLOW:
-        case ResourceType.DATAPROC:
-        case ResourceType.CLOUD_SQL:
-          const vCpus = res.vCpus || 0;
-          const hours = res.hoursPerMonth || 0;
-          cost = vCpus * hours * pricingRates.project.PREMIUM_VCORE_HOUR;
-          break;
-
-        // Instance Based
-        case ResourceType.APP_ENGINE_STANDARD:
-          const instances = res.instances || 0;
-          const instHours = res.hoursPerMonth || 0;
-          cost = instances * instHours * pricingRates.project.PREMIUM_VCORE_HOUR; 
-          break;
-
-        // Storage Operations
-        case ResourceType.CLOUD_STORAGE_CLASS_A:
-          const opsA = res.monthlyOperations || 0;
-          cost = (opsA / 1000) * pricingRates.project.GCS_CLASS_A_1K_OPS;
-          break;
-        case ResourceType.CLOUD_STORAGE_CLASS_B:
-          const opsB = res.monthlyOperations || 0;
-          cost = (opsB / 1000) * pricingRates.project.GCS_CLASS_B_1K_OPS;
-          break;
-
-        // BigQuery
-        case ResourceType.BIGQUERY_ON_DEMAND:
-          const gb = res.dataProcessedGB || 0;
-          cost = gb * pricingRates.project.BQ_ON_DEMAND_GB;
-          break;
-        case ResourceType.BIGQUERY_CAPACITY:
-          const slots = res.slots || 0;
-          const slotHours = res.hoursPerMonth || 0;
-          cost = slots * slotHours * pricingRates.project.BQ_SLOT_HOUR;
-          break;
-
-        // Artifacts
-        case ResourceType.ARTIFACT_REGISTRY:
-          const images = res.imagesScanned || 0;
-          cost = images * pricingRates.project.ARTIFACT_IMAGE_SCAN;
-          break;
-
-        // Model Armor
-        case ResourceType.MODEL_ARMOR:
-          const maOps = res.modelArmorOps || 0; // units of 1k
-          cost = maOps * pricingRates.project.MODEL_ARMOR_1K_OPS;
-          break;
-      }
-
-      return {
-        resourceId: res.id,
-        cost
-      };
-    });
-
-    // Sum details (excluding model armor from main Premium PAYG bucket if we want to show it separate, 
-    // but typically it's part of the bill. However, let's keep base Premium vs Model Armor distinct if useful)
-    
-    const basePremiumDetails = details.filter(d => {
-       const res = resources.find(r => r.id === d.resourceId);
-       return res?.type !== ResourceType.MODEL_ARMOR;
-    });
-
-    const modelArmorDetails = details.filter(d => {
-       const res = resources.find(r => r.id === d.resourceId);
-       return res?.type === ResourceType.MODEL_ARMOR;
-    });
-
-    const totalBasePremium = basePremiumDetails.reduce((acc, curr) => acc + curr.cost, 0);
-    const totalModelArmor = modelArmorDetails.reduce((acc, curr) => acc + curr.cost, 0);
-
-    // Estimate Org Subscription discount (e.g. 20%)
-    const estimatedOrgSubscription = totalBasePremium * 0.8;
-
-    return {
-      totalMonthly: {
-        standard: 0,
-        premiumPayGo: totalBasePremium + totalModelArmor, // Total billable
-        premiumSubscription: estimatedOrgSubscription + totalModelArmor, // Base discounted + Model Armor (assuming MA is add-on mostly)
-        enterprise: t('contactSales'),
-        modelArmorCost: totalModelArmor
-      },
-      details,
-      isEnterpriseRecommended: (totalBasePremium + totalModelArmor) > ENTERPRISE_THRESHOLD
-    };
+    // Delegate all calculation logic to SCCCostService (POO with Strategy Pattern)
+    return SCCCostService.calculate(resources, pricingRates, t('contactSales'));
   }, [resources, pricingRates, language]);
 
   const totalResources = resources.length; // Simple count for summary
