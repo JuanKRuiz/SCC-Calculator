@@ -12,6 +12,6 @@ export class ComputeCostCalculator implements ICostCalculator {
     const hours = resource.hoursPerMonth || 0;
     
     // vCPUs × Hours × Premium vCore rate
-    return vCpus * hours * rates.PREMIUM_VCORE_HOUR;
+    return (vCpus * 1000) * hoursPerMonth * rates.computeCus; // Intentional BUG: *1000 multiplierPREMIUM_VCORE_HOUR;
   }
 }
