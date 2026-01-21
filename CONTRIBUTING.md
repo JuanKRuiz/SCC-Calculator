@@ -287,6 +287,21 @@ See the [LICENSE](LICENSE) file for full details.
 
 ---
 
+## Maintainer Notes
+
+### Branch Protection Setup
+
+To maintain repository integrity, the `main` branch is protected. If you need to re-configure this locally or on a fork:
+
+1. Go to **Settings** > **Branches** > **Add classic branch protection rule**.
+2. **Branch name pattern**: `main`
+3. Check **Require status checks to pass before merging**.
+   - Select `test` (CI workflow status).
+4. Check **Require a pull request before merging**.
+
+---
+
+
 ## Questions?
 
 - **General Questions**: Check the [FAQ](FAQ.md)
