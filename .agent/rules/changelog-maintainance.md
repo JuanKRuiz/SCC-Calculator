@@ -1,5 +1,5 @@
 ---
-trigger: model_decision
+trigger: always_on
 description: Aplica esta regla siempre que se realicen cambios significativos en el código, directivas de prompt o configuración de infraestructura.
 ---
 

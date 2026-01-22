@@ -17,7 +17,7 @@ const App: React.FC = () => {
     setTheme(newTheme);
     const themeLink = document.getElementById('theme-stylesheet') as HTMLLinkElement;
     if (themeLink) {
-      themeLink.href = newTheme === 'corporate' ? '/css/theme-base.css' : '/css/theme-gravity.css';
+      themeLink.href = newTheme === 'corporate' ? 'css/theme-base.css' : 'css/theme-gravity.css';
     }
     
     // Toggle class for CSS-based component switching (e.g. InputRow)
