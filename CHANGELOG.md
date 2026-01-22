@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created `FAQ.md` covering technical architecture, privacy, and roadmap.
 
+## [2026-01-22] - Corrección de Assets en GitHub Pages
+### 🐛 Correcciones
+- Se actualizó `vite.config.ts` estableciendo `base` a `/SCC-Calculator/` para asegurar la correcta resolución de assets en GitHub Pages.
+- Se corrigió `src/App.tsx` para construir rutas de CSS dinámico utilizando `import.meta.env.BASE_URL`, solucionando el error donde el tema "Gravity Falls" no cargaba colores ni fuentes en producción.
+
 ## [0.3.0] - 2026-01-21
 ### ✨ Nuevas Características
 - **Gravity Falls Theme**: Implemented a complete "Vintage Journal" aesthetic theme, togglable via header.
