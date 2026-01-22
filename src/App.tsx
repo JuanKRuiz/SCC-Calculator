@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ResourceInput, ResourceType, CostResult, DEFAULT_PRICING_RATES, PricingRates } from './types';
 import { InputRow } from './components/InputRow';
 import { CostCharts } from './components/CostCharts';
@@ -10,22 +10,36 @@ import { SCCCostService } from './services/SCCCostService';
 
 const App: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
-  const [theme, setTheme] = useState<'corporate' | 'gravity'>('corporate');
+  
+  // Initialize theme from localStorage or default to 'corporate'
+  const [theme, setTheme] = useState<'corporate' | 'gravity'>(() => {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('scc_theme');
+      return (savedTheme === 'corporate' || savedTheme === 'gravity') ? savedTheme : 'corporate';
+    }
+    return 'corporate';
+  });
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'corporate' ? 'gravity' : 'corporate';
-    setTheme(newTheme);
+  // Apply theme side-effects (CSS load & Body class) whenever theme changes
+  useEffect(() => {
     const themeLink = document.getElementById('theme-stylesheet') as HTMLLinkElement;
     if (themeLink) {
-      themeLink.href = newTheme === 'corporate' ? 'css/theme-base.css' : 'css/theme-gravity.css';
+        // Use relative path matching the deployment fix
+        themeLink.href = theme === 'corporate' ? 'css/theme-base.css' : 'css/theme-gravity.css';
     }
-    
-    // Toggle class for CSS-based component switching (e.g. InputRow)
-    if (newTheme === 'gravity') {
+
+    if (theme === 'gravity') {
       document.body.classList.add('theme-gravity');
     } else {
       document.body.classList.remove('theme-gravity');
     }
+    
+    // Persist to storage
+    localStorage.setItem('scc_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'corporate' ? 'gravity' : 'corporate');
   };
 
   const [resources, setResources] = useState<ResourceInput[]>([

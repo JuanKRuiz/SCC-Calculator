@@ -9,35 +9,20 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-const COOKIE_NAME = 'scc_calc_lang';
-
-const getCookie = (name: string): string | undefined => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift();
-  return undefined;
-};
-
-const setCookie = (name: string, value: string, days: number) => {
-  const date = new Date();
-  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-  const expires = `expires=${date.toUTCString()}`;
-  document.cookie = `${name}=${value};${expires};path=/`;
-};
+const STORAGE_KEY = 'scc_calc_lang';
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>('es');
-
-  useEffect(() => {
-    const savedLang = getCookie(COOKIE_NAME);
-    if (savedLang && ['es', 'en', 'pt'].includes(savedLang)) {
-      setLanguageState(savedLang as Language);
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return (saved && ['es', 'en', 'pt'].includes(saved)) ? (saved as Language) : 'es';
     }
-  }, []);
+    return 'es';
+  });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    setCookie(COOKIE_NAME, lang, 365);
+    localStorage.setItem(STORAGE_KEY, lang);
   };
 
   const t = (key: keyof typeof translations['es']): string => {
