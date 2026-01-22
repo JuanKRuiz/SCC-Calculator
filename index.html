@@ -17,7 +17,6 @@
 
     <!-- Favicon (SVG Data URI for performance & transparency) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
   <script type="importmap">
 {
   "imports": {
@@ -31,38 +30,6 @@
 </script>
 <link id="theme-stylesheet" rel="stylesheet" href="css/theme-base.css">
     <link rel="stylesheet" href="css/gravity-falls-sprites.css">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              background: {
-                 app: 'var(--bg-app)',
-                 card: 'var(--bg-card)',
-                 alt: 'var(--bg-card-alt)',
-              },
-              primary: 'var(--text-primary)',
-              secondary: 'var(--text-secondary)',
-              tertiary: 'var(--text-tertiary)',
-              brand: {
-                blue: 'var(--brand-blue)',
-                red: 'var(--brand-red)',
-                yellow: 'var(--brand-yellow)',
-                green: 'var(--brand-green)',
-              },
-              accent: {
-                primary: 'var(--accent-primary)',
-                secondary: 'var(--accent-secondary)',
-              },
-              border: {
-                 subtle: 'var(--border-subtle)',
-                 strong: 'var(--border-strong)',
-              }
-            }
-          }
-        }
-      }
-    </script>
 </head>
   <body class="bg-background-app text-primary transition-colors duration-300">
     <div id="root"></div>
