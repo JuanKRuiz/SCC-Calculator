@@ -106,8 +106,8 @@ export const CostCharts: React.FC<CostChartsProps> = ({ costResult, resources })
           {groupedPieData.length > 0 ? (
             <div className="flex flex-col md:flex-row h-full gap-8 items-center">
                {/* Chart Container */}
-              <div className="w-full md:w-1/2 h-64 relative">
-                <ResponsiveContainer width="100%" height="100%">
+              <div className="w-full md:w-1/2 h-64 relative" style={{ minHeight: '250px' }}>
+                <ResponsiveContainer width="99%" height="100%">
                   <PieChart>
                     <Pie
                       data={groupedPieData}

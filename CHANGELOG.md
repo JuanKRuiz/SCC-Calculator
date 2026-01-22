@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created `FAQ.md` covering technical architecture, privacy, and roadmap.
 
+## [0.3.0] - 2026-01-21
+### ✨ Nuevas Características
+- **Gravity Falls Theme**: Implemented a complete "Vintage Journal" aesthetic theme, togglable via header.
+  - Custom font integration (`Special Elite`, `Caesar Dressing`).
+  - Full Sprite extraction and animation system (Bill Cipher, Gnome, Items).
+  - Semantic CSS variable system for easy theming.
+- **Persistent Preferences**: Implemented `localStorage` persistence for Theme and Language selection.
+- **Branding**: Added SVG Favicon (Security Shield) and comprehensive SEO/Open Graph tags.
+- **Governance**: Added GitHub Issue Template for Feature Requests (`.github/ISSUE_TEMPLATE`).
+
+### 🔧 Refactorización y Mejoras
+- **Tailwind CSS**: Migrated from CDN to local PostCSS build (v3.4) for production performance.
+- **Deployment**: Moved static assets (`css/`, `img/`) to `public/` directory to fix Vite build/deploy issues on GitHub Pages.
+- **Architecture**: Enforced relative paths in `index.html` and `App.tsx` for subdirectory hosting support.
+- **Stability**: Fixed Recharts dimension warning (`width(-1)`) by stabilizing container layout.
+
 ## [0.2.0] - 2026-01-20
 ### Added
 - **Export**: CSV now includes explicit columns for "Org Level" costs alongside PAYG.
