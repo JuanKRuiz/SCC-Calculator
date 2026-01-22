@@ -1,11 +1,14 @@
+/// <reference types="vite/client" />
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
+declare const __APP_VERSION__: string;
+
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-      base: './',
+      base: '/SCC-Calculator/',
       server: {
         port: 5173,
         strictPort: true,
@@ -13,7 +16,7 @@ export default defineConfig(({ mode }) => {
       },
       plugins: [react()],
       define: {
-        // 'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+        __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
       },
       resolve: {
         alias: {

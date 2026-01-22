@@ -24,8 +24,11 @@ const App: React.FC = () => {
   useEffect(() => {
     const themeLink = document.getElementById('theme-stylesheet') as HTMLLinkElement;
     if (themeLink) {
-        // Use relative path matching the deployment fix
-        themeLink.href = theme === 'corporate' ? 'css/theme-base.css' : 'css/theme-gravity.css';
+        // Use base path from Vite config to handle subpaths correctly on GitHub Pages
+        const baseUrl = import.meta.env.BASE_URL;
+        // BASE_URL already includes trailing slash if configured in vite.config.ts, but we ensure it for safety
+        const safeBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+        themeLink.href = `${safeBase}css/${theme === 'corporate' ? 'theme-base.css' : 'theme-gravity.css'}`;
     }
 
     if (theme === 'gravity') {
